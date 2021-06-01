@@ -1,0 +1,46 @@
+
+<nav class="navbar navbar-expand-lg  navbar-light bg-light fixed-top">
+  <div class="container">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+      <i class="fa fa-leaf" aria-hidden="true"></i>
+      </a>
+    </div>
+
+
+    <div class="collapse navbar-collapse" id="ecom-navbar-collapse-1">
+        <ul class="nav navbar-nav me-auto">                      
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/shopping-cart">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                  <span class="badge bg-warning rounded-pill text-dark">
+                    {{cartItemCount }}
+                  </span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav ">                      
+          <li *ngIf="username=='user'" class="nav-item">
+              <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li ngbDropdown *ngIf="username" class="nav-item dropdown">
+              <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{username}}
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
+                <a class="dropdown-item" routerLink="/my/orders">My Orders</a>
+                <a class="dropdown-item" *ngIf="isAdmin" routerLink="/admin/orders">Manage Orders</a>
+                <a class="dropdown-item" *ngIf="isAdmin" routerLink="/admin/products">Manage Products</a>
+                <a class="dropdown-item" (click)="logout()">Log Out</a>
+              </div>
+            </li>
+      </ul>
+
+
+    </div>
+
+  </div>
+    
+</nav>
