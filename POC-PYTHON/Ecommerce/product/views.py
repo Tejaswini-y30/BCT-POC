@@ -23,10 +23,19 @@ def productList(request):
 	product = Products.objects.all().order_by('productId')
 	serializer =  ProductsSerializer(product, many=True)
 	return Response(serializer.data)
-
+'''
 @api_view(['GET'])
 def ProductDetail(request, pk):
 	product = Products.objects.get(productId=pk)
+	serializer = ProductsSerializer(product, many=False)
+	return Response(serializer.data)
+'''
+@api_view(['GET'])
+def ProductDetail(request, pk):
+	try:
+		product = Products.objects.get(productId=pk) 
+	except Products.DoesNotExist:
+		return JsonResponse({'Error':'The product does not exist', status:status.HTTP_404_NOT_FOUND})
 	serializer = ProductsSerializer(product, many=False)
 	return Response(serializer.data)
 
@@ -53,6 +62,19 @@ def ProductUpdate(request, pk):
 	return Response(serializer.data)
 
 
+@api_view(['DELETE'])
+def ProductDelete(request, pk):
+	try:
+		product = Products.objects.get(productId=pk) 
+	except Products.DoesNotExist:
+		return JsonResponse({'Error':'The product does not exist', status:status.HTTP_404_NOT_FOUND})
+	product.delete()
+
+	return Response('Item succsesfully delete!')
+
+
+
+'''
 
 @api_view(['DELETE'])
 def ProductDelete(request, pk):
@@ -61,5 +83,5 @@ def ProductDelete(request, pk):
 	product.delete()
 
 	return Response('Item succsesfully delete!')
-
+'''
 
